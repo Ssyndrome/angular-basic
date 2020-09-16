@@ -4,6 +4,11 @@
 <nz-table #editRowTable nzBordered [nzData]="listOfData">
   <thead>
   <tr>
+    <th
+      [(nzChecked)]="checked"
+      [nzIndeterminate]="indeterminate"
+      (nzCheckedChange)="onAllChecked($event)"
+    ></th>
     <th nzWidth="30%">Name</th>
     <th>Age</th>
     <th>Address</th>
@@ -12,6 +17,7 @@
   </thead>
   <tbody>
   <tr *ngFor="let data of editRowTable.data" class="editable-row">
+    <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
     <td>
       <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
         {{ data.name }}
