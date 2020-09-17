@@ -1,4 +1,4 @@
-<button nz-button (click)="addRow()" nzType="primary">Add</button>
+<button nz-button [routerLink]="['/create']" nzType="primary">Create</button>
 <br />
 <br />
 <nz-table #editRowTable nzBordered [nzData]="listOfData">
