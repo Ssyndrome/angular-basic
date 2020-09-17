@@ -38,15 +38,12 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
+      id: [null, Validators.required],
       email: [null, [Validators.email, Validators.required]],
-      password: [null, [Validators.required]],
-      checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      nickname: [null, [Validators.required]],
-      phoneNumberPrefix: ['+86'],
-      phoneNumber: [null, [Validators.required]],
-      website: [null, [Validators.required]],
-      captcha: [null, [Validators.required]],
-      agree: [false]
+      name: [null, [Validators.required]],
+      hobbies: [[]],
+      city: [null, Validators.required],
+      skills: [[], Validators.required],
     });
   }
 }

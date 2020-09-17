@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-interface ItemData {
-  id: number;
-  name: string;
-  age: string;
-  address: string;
-}
+import { Observable } from 'rxjs';
+import { Student } from '../../student';
+import { StudentService } from '../../services/student.service';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-welcome',
@@ -14,9 +11,10 @@ interface ItemData {
 })
 export class WelcomeComponent implements OnInit {
 
+  students: Student[];
+
   i = 0;
   editId: string | null = null;
-  listOfData: ItemData[] = [];
   checked = false;
   indeterminate = false;
   setOfCheckedId = new Set<number>();
@@ -35,12 +33,12 @@ export class WelcomeComponent implements OnInit {
   }
 
   refreshCheckedStatus(): void {
-    this.checked = this.listOfData.every(item => this.setOfCheckedId.has(item.id));
-    this.indeterminate = this.listOfData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
+    this.checked = this.students.every(item => this.setOfCheckedId.has(item.id));
+    this.indeterminate = this.students.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
   }
 
   onAllChecked(value: boolean): void {
-    this.listOfData.forEach(item => this.updateCheckedSet(item.id, value));
+    _.map(this.students, student => this.updateCheckedSet(student.id, value));
     this.refreshCheckedStatus();
   }
 
@@ -52,26 +50,20 @@ export class WelcomeComponent implements OnInit {
     this.editId = null;
   }
 
-  addRow(): void {
-    this.listOfData = [
-      ...this.listOfData,
-      {
-        id: this.i,
-        name: `Edward King ${this.i}`,
-        age: '32',
-        address: `London, Park Lane no. ${this.i}`
-      }
-    ];
-    this.i++;
+  deleteRow(id: number): void {
+    this.studentService.deleteStudent(id);
+    this.loadData();
   }
 
-  deleteRow(id: number): void {
-    this.listOfData = this.listOfData.filter(d => d.id !== id);
+  constructor(private studentService: StudentService) {
   }
 
   ngOnInit(): void {
-    this.addRow();
-    this.addRow();
+    this.loadData();
+  }
+
+  loadData(): void {
+    this.students = this.studentService.getStudents();
   }
 
 }
