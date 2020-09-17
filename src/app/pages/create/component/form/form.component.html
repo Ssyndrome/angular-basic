@@ -1,5 +1,11 @@
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="id">学号</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入你的学号">
+      <nz-input-number formControlName="id" id="id" [nzMin]="1" [nzMax]="99999999" [nzPrecision]="0" [nzStep]="1"></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">邮箱</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入正确的邮箱格式">
       <input nz-input formControlName="email" id="email" />
@@ -11,9 +17,30 @@
       <input nz-input id="name" formControlName="name" />
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">爱好</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入你的爱好">
+      <nz-select nzMode="tags" id="hobbies" formControlName="hobbies">
+        <nz-option *ngFor="let option of hobbyOptions" [nzLabel]="option" [nzValue]="option"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="city" nzRequired>城市</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入你的城市">
+      <nz-cascader
+        [nzOptions]="cityOptions"
+        id="city"
+        formControlName="city"
+        [nzShowSearch]="true"
+        [nzLabelProperty]="'name'"
+        [nzValueProperty]="'code'"
+      ></nz-cascader>
+    </nz-form-control>
+  </nz-form-item>
   <nz-form-item nz-row>
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <button nz-button nzType="primary">Create</button>
+      <button nz-button nzType="primary" [disabled]="validateForm.invalid">Create</button>
     </nz-form-control>
   </nz-form-item>
 </form>
