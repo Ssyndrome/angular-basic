@@ -9,3 +9,19 @@
 .register-are {
   margin-bottom: 8px;
 }
+
+.skills-container {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+}
+
+.skill-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.skill-name {
+  width: 100px;
+}

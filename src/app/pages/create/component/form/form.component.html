@@ -38,6 +38,17 @@
       ></nz-cascader>
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="skills" nzRequired>技能</nz-form-label>
+    <div class="skills-container">
+      <div *ngFor="let skill of skills.controls; index as i" formArrayName="skills" class="skill-row">
+        <ng-container [formGroupName]="i">
+          <div class="skill-name">{{ skill.value.name }}</div>
+          <nz-rate formControlName="level"></nz-rate>
+        </ng-container>
+      </div>
+    </div>
+  </nz-form-item>
   <nz-form-item nz-row>
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
       <button nz-button nzType="primary" [disabled]="validateForm.invalid">Create</button>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import _ from 'lodash';
 import citiesData from './city-data.json';
 
@@ -38,12 +38,37 @@ export class FormComponent implements OnInit {
       name: [null, [Validators.required]],
       hobbies: [[]],
       city: [null, Validators.required],
-      skills: [[], Validators.required],
+      skills: new FormArray([
+        new FormGroup({
+          name: new FormControl('Java'),
+          level: new FormControl(0)
+        }),
+        new FormGroup({
+          name: new FormControl('C'),
+          level: new FormControl(0)
+        }),
+        new FormGroup({
+          name: new FormControl('C#'),
+          level: new FormControl(0)
+        }),
+        new FormGroup({
+          name: new FormControl('React'),
+          level: new FormControl(0)
+        }),
+        new FormGroup({
+          name: new FormControl('Angular'),
+          level: new FormControl(0)
+        }),
+      ]),
     });
   }
 
   private initConfiguration(): void {
     this.cityOptions = _.map(citiesData, country => this.addIsLeaf(country));
     console.log(this.cityOptions);
+  }
+
+  get skills(): FormArray {
+    return this.validateForm.get('skills') as FormArray;
   }
 }

@@ -9,5 +9,5 @@ export interface Student {
 
 export interface SkillInfo {
   name: string;
-  rank: number;
+  level: number;
 }
