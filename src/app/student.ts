@@ -3,7 +3,7 @@ export interface Student {
   name: string;
   email: string;
   hobbies: Array<string>;
-  city: string;
+  city: Array<string>;
   skills: Array<SkillInfo>;
 }
 

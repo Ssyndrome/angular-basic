@@ -15,6 +15,7 @@
     <th>爱好</th>
     <th>城市</th>
     <th>语言</th>
+    <th>Action</th>
   </tr>
   </thead>
   <tbody>
@@ -32,11 +33,13 @@
     <td>{{ data.city }}</td>
     <td>
       <div *ngFor="let skill of data.skills">
-        {{ skill.name }}: {{ skill.rank }}
+        <div *ngIf="skill.level > 0">
+          {{ skill.name }}: {{ skill.level }}星
+        </div>
       </div>
     </td>
     <td>
-      <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
+      <a nz-popconfirm nzPopconfirmTitle="确认删除 ？" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
     </td>
   </tr>
   </tbody>

@@ -34,7 +34,7 @@
         formControlName="city"
         [nzShowSearch]="true"
         [nzLabelProperty]="'name'"
-        [nzValueProperty]="'code'"
+        [nzValueProperty]="'name'"
       ></nz-cascader>
     </nz-form-control>
   </nz-form-item>
@@ -51,7 +51,7 @@
   </nz-form-item>
   <nz-form-item nz-row>
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <button nz-button nzType="primary" [disabled]="validateForm.invalid">Create</button>
+      <button nz-button nzType="primary" [disabled]="validateForm.invalid" (click)="onCreateStudent()">Create</button>
     </nz-form-control>
   </nz-form-item>
 </form>

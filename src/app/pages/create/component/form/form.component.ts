@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import _ from 'lodash';
 import citiesData from './city-data.json';
+import { Router } from '@angular/router';
+import { StudentService } from '../../../../services/student.service';
 
 @Component({
   selector: 'app-form',
@@ -28,7 +30,9 @@ export class FormComponent implements OnInit {
     });
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private studentService: StudentService) {}
 
   ngOnInit(): void {
     this.initConfiguration();
@@ -70,5 +74,11 @@ export class FormComponent implements OnInit {
 
   get skills(): FormArray {
     return this.validateForm.get('skills') as FormArray;
+  }
+
+  onCreateStudent(): void {
+    console.log(this.validateForm.value);
+    this.studentService.createStudents(this.validateForm.value);
+    this.router.navigate(['/welcome']);
   }
 }
